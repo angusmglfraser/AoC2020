@@ -20,7 +20,16 @@ function validatePassword(rule, password) {
   return (filtered.length >= lowerLimit && filtered.length <= upperLimit);
 }
 
-function countValidPasswords(input) {
+function validatePassword2(rule, password) {
+  const { lowerLimit: index1, upperLimit: index2, char } = rule;
+
+  const c1 = password[index1 - 1] === char;
+  const c2 = password[index2 - 1] === char;
+
+  return (c1 || c2) && !(c1 && c2);
+}
+
+function countValidPasswords(input, validator) {
   let count = 0;
 
   for (let i = 0; i < input.length; i++) {
@@ -28,7 +37,7 @@ function countValidPasswords(input) {
 
     const rule = parseRule(ruleStr);
 
-    if (validatePassword(rule, password)) {
+    if (validator(rule, password)) {
       count++;
     }
   }
@@ -38,6 +47,10 @@ function countValidPasswords(input) {
 
 const passwords = fs.readFileSync('input.txt', 'utf-8').split('\n');
 
-const result = countValidPasswords(passwords);
+const result = countValidPasswords(passwords, validatePassword);
 
 console.log({ result });
+
+const result2 = countValidPasswords(passwords, validatePassword2);
+
+console.log({ result2 });
