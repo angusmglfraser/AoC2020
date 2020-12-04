@@ -34,3 +34,20 @@ const result = traverse(
 );
 
 console.log({ result });
+
+const slopes = [
+  { xIncrement: 1, yIncrement: 1 },
+  { xIncrement: 3, yIncrement: 1 },
+  { xIncrement: 5, yIncrement: 1 },
+  { xIncrement: 7, yIncrement: 1 },
+  { xIncrement: 1, yIncrement: 2 },
+];
+
+let product = 1;
+
+slopes.forEach(({ xIncrement, yIncrement }) => {
+  const result = traverse(input.split('\n'), xIncrement, yIncrement);
+  product *= result.trees;
+});
+
+console.log({ product });
