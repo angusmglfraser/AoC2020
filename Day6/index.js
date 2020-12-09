@@ -30,3 +30,28 @@ groups.forEach((group) => {
 });
 
 console.log({ sum });
+
+sum = 0;
+
+const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
+groups.forEach((group) => {
+  const answered = {};
+
+  alphabet.forEach((letter) => {
+    let found = true;
+    for (let i = 0; i < group.length && found; i += 1) {
+      const person = group[i];
+      if (!person.includes(letter)) {
+        found = false;
+      }
+    }
+
+    if (found) {
+      answered[letter] = true;
+    }
+  });
+
+  sum += Object.keys(answered).length;
+});
+
+console.log({ sum });
