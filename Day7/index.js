@@ -1,3 +1,4 @@
+/* eslint-disable no-loop-func */
 const fs = require('fs');
 
 const input = fs.readFileSync('input.txt', 'utf-8');
@@ -50,3 +51,21 @@ while (toEvaluateQueue.length) {
 const containerCandidates = Object.keys(visitedColors);
 
 console.log({ length: containerCandidates.length });
+
+toEvaluateQueue = [{ color: start, factor: 1 }];
+let totalChildren = 0;
+
+while (toEvaluateQueue.length) {
+  const node = toEvaluateQueue.pop();
+  const { color, factor } = node;
+
+  const { children } = map[color];
+
+  children.forEach((child) => {
+    const { quantity: childFactor, color: childColor } = child;
+    totalChildren += factor * childFactor;
+    toEvaluateQueue.push({ color: childColor, factor: factor * childFactor });
+  });
+}
+
+console.log({ totalChildren });
