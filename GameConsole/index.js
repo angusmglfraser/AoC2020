@@ -9,6 +9,10 @@ class GameConsole {
     this.programCounter = 0;
   }
 
+  get isHalted() {
+    return this.programCounter === this.instructions.length;
+  }
+
   step() {
     const { op, arg } = this.instructions[this.programCounter];
 
