@@ -38,3 +38,25 @@ const result = findInvalidValue(numArr, {
 });
 
 console.log({ result });
+
+let min;
+let max;
+
+let found = false;
+for (let i = 0; i < numArr.length; i += 1) {
+  min = numArr[i];
+  max = numArr[i];
+
+  let sum = numArr[i];
+  for (let j = i + 1; j < numArr.length; j += 1) {
+    if (numArr[j] < min) { min = numArr[j]; }
+    if (numArr[j] > max) { max = numArr[j]; }
+    sum += numArr[j];
+    if (sum === result) {
+      found = true;
+      break;
+    }
+  }
+  if (found) break;
+}
+console.log({ sum: min + max });
