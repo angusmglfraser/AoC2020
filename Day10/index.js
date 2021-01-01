@@ -8,9 +8,12 @@ let currentJoltage = 0;
 
 let nextAdapter = 0;
 
-const diffCounts = { 3: 1 };
+const diffCounts = {
+  3: 1,
+};
 
 do {
+  // eslint-disable-next-line no-loop-func
   nextAdapter = adapters.find((x) => x > currentJoltage && x - currentJoltage <= 3);
 
   const diff = nextAdapter - currentJoltage;
@@ -19,4 +22,18 @@ do {
   currentJoltage = nextAdapter;
 } while (nextAdapter);
 
-console.log({ result: diffCounts[1] * diffCounts[3] });
+console.log({
+  result: diffCounts[1] * diffCounts[3],
+});
+
+const pathCounts = { 0: 1 };
+
+adapters.push(adapters[adapters.length - 1] + 3);
+
+adapters.forEach((adapter) => {
+  pathCounts[adapter] = (pathCounts[adapter - 3] || 0)
+  + (pathCounts[adapter - 2] || 0)
+  + (pathCounts[adapter - 1] || 0);
+});
+
+console.log({ result: pathCounts[adapters[adapters.length - 1]] });
